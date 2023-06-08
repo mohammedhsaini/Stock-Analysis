@@ -1,0 +1,61 @@
+---
+title: "Stock analysis with r"
+author: "Mohammed_HSAINI"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Libraries##
+
+```{r}
+library(tidyverse)
+library(TTR)
+library(Quandl)
+library(PerformanceAnalytics)
+library(RColorBrewer)
+library(tseries)
+library(quantmod)
+library(lubridate)
+
+quandl_api_key("zcrB2Ejv9UmvhPCUsy2_")
+```
+
+## Microsoft Analysis##
+```{r}
+MSFT <- getSymbols("MSFT", auto.assign = F)
+head(MSFT)
+dim(MSFT)
+msft <- as.data.frame(MSFT)
+head(dailyReturn(MSFT$MSFT.Adjusted))
+plot(dailyReturn(MSFT$MSFT.Adjusted),type = "l")
+msft_ad <- Ad(MSFT)
+
+msft_daily <- dailyReturn(msft_ad)
+
+```
+
+
+## Tesla Analysis##
+```{r}
+TSLA <- getSymbols("TSLA", auto.assign = F)
+tesla <- as.data.frame(TSLA)
+head(dailyReturn(TSLA$TSLA.Adjusted))
+plot(dailyReturn(TSLA$TSLA.Adjusted),type = "l")
+tsla_ad <- Ad(TSLA)
+tsla_daily <- dailyReturn(tsla_ad)
+```
+
+## shap ratio##
+```{r}
+comb_traded <- merge(msft_daily,tsla_daily, all = F)
+dim(comb_traded)
+
+head(comb_traded)
+charts.PerformanceSummary(comb_traded, main = "MSFT VS TSLA",)
+table.AnnualizedReturns(comb_traded,scale = 252,Rf = 0.004/252)
+```
+
