@@ -1,4 +1,4 @@
-# Tesla-vs.-Microsoft-Performance-Stock-Comparison
+# Tesla-vs-Microsoft-Performance-Stock-Comparison
 
 The "Tesla vs. Microsoft Performance Stock Comparison" project attempts to study and compare the investment performance of Tesla and Microsoft stocks using the Sharpe ratio as a risk-adjusted measure. The project will use the R programming language and the Quantmod package to collect historical stock price data from Yahoo Finance.
 
